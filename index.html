@@ -12,6 +12,9 @@
       document.addEventListener("DOMContentLoaded", function () {
         // Получаем объект WebApp
         var webApp = window.WebApp;
+        console.log(webApp);
+
+        O2HTML(webApp.initDataManager, "result1");
 
         // Посылаем данные в мобильное приложение
         function sendDataToNative(data) {
@@ -48,6 +51,20 @@
           });
         }, 2000);
       });
+
+      function O2HTML(obj, containerId) {
+        const container = document.getElementById(containerId);
+
+        // Очищаем контейнер
+        container.innerHTML = "";
+
+        // Создаем параграфы для каждого свойства
+        for (const [key, value] of Object.entries(obj)) {
+          const p = document.createElement("p");
+          p.innerHTML = `<strong>${key}:</strong> ${value}`;
+          container.appendChild(p);
+        }
+      }
     </script>
 
     <title>Миниприложение</title>
@@ -59,6 +76,7 @@
 
       <div class="overflow-auto bg-teal-300 p-3 text-xs">
         <p id="result">Здесь появятся полученные данные.</p>
+        <p id="result1">А здесь DATA</p>
       </div>
 
       <!-- menu -->
